@@ -1,4 +1,4 @@
-project: pkg.indigo-iam/v1.5.0.RELEASE
+project: pkg.indigo-iam/develop
 repo: indigo-iam
 platforms:
   - centos7
