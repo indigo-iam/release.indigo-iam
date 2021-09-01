@@ -1,5 +1,4 @@
-project: pkg.indigo-iam/v1.6.0
+project: pkg.indigo-iam/v1.7.0
 repo: indigo-iam
 platforms:
   - centos7
-  - ubuntu1604
