@@ -1,4 +1,4 @@
 project: pkg.indigo-iam/develop
 repo: indigo-iam
 platforms:
-  - centos7
+  - centos7java17
