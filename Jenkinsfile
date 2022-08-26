@@ -3,6 +3,7 @@
 def platform2Repo = [
   "centos7" : "centos7",
   "centos7java11" : "centos7",
+  "centos7java17" : "centos7",
   "centos6": "centos6"
 ]
 
