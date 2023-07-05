@@ -1,4 +1,4 @@
-project: pkg.indigo-iam/v1.8.0
+project: pkg.indigo-iam/v1.8.1p1
 repo: indigo-iam
 platforms:
   - centos7java17
