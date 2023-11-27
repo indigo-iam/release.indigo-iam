@@ -51,6 +51,8 @@ def publish(repo, platform, platform2Repo) {
 
   if (platform ==~ /^centos\d+.*/) {
     sh "nexus-assets-flat-upload -u ${env.NEXUS_CRED_USR} -p ${env.NEXUS_CRED_PSW} -H ${env.NEXUS_HOST} -r ${repo}/${platformRepo} -d artifacts/packages/${platform}/RPMS"
+  } else if (platform ==~ /^almalinux\d+.*/) {
+    sh "nexus-assets-flat-upload -u ${env.NEXUS_CRED_USR} -p ${env.NEXUS_CRED_PSW} -H ${env.NEXUS_HOST} -r ${repo}/${platformRepo} -d artifacts/packages/${platform}/RPMS"
   } else if (platform ==~ /^ubuntu\d+/) {
     sh "nexus-assets-flat-upload -f -u ${env.NEXUS_CRED_USR} -p ${env.NEXUS_CRED_PSW} -H ${env.NEXUS_HOST} -r ${repo} -d artifacts/packages/${platform}"
   } else {
