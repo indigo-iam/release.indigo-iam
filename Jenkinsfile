@@ -12,6 +12,8 @@ def buildRepoName(repo, platform) {
   def repoName
   if (platform ==~ /^centos\d+.*/) {
     repoName = "${repo}-rpm-${env.BRANCH_NAME}"
+  } else if (platform ==~ /^almalinux\d+.*/) {
+    repoName = "${repo}-rpm-${env.BRANCH_NAME}"
   } else if (platform ==~ /^ubuntu\d+/) {
     repoName = "${repo}-deb-${env.BRANCH_NAME}-${platform}"
   } else {
