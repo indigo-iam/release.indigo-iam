@@ -4,15 +4,13 @@ def platform2Repo = [
   "centos7" : "centos7",
   "centos7java11" : "centos7",
   "centos7java17" : "centos7",
-  "almalinux9java17": "el9"
+  "almalinux9java17": "almalinux9"
 ]
 
 def buildRepoName(repo, platform) {
 
   def repoName
-  if (platform ==~ /^centos\d+.*/) {
-    repoName = "${repo}-rpm-${env.BRANCH_NAME}"
-  } else if (platform ==~ /^almalinux\d+.*/) {
+  if (platform ==~ /^centos\d+.*/ || platform ==~ /^almalinux\d+.*/ ) {
     repoName = "${repo}-rpm-${env.BRANCH_NAME}"
   } else if (platform ==~ /^ubuntu\d+/) {
     repoName = "${repo}-deb-${env.BRANCH_NAME}-${platform}"
@@ -31,7 +29,7 @@ def removePackages(repo, platform, platform2Repo) {
   }
   echo "platformRepo = $platformRepo"
 
-  if (platform ==~ /^centos\d+.*/) {
+  if (platform ==~ /^centos\d+.*/ || platform ==~ /^almalinux\d+.*/ ) {
     sh "nexus-assets-remove -u ${env.NEXUS_CRED_USR} -p ${env.NEXUS_CRED_PSW} -H ${env.NEXUS_HOST} -r ${repo} -q ${platformRepo}"
   } else if (platform ==~ /^ubuntu\d+/) {
     sh "nexus-assets-remove -u ${env.NEXUS_CRED_USR} -p ${env.NEXUS_CRED_PSW} -H ${env.NEXUS_HOST} -r ${repo} -q packages"
@@ -48,10 +46,11 @@ def publish(repo, platform, platform2Repo) {
     error("Unknown platform: $platform")
   }
   echo "platformRepo = $platformRepo"
+  echo "platform = $platform"
+  sh "pwd"
+  sh "ls -latr artifacts/packages/"
 
-  if (platform ==~ /^centos\d+.*/) {
-    sh "nexus-assets-flat-upload -u ${env.NEXUS_CRED_USR} -p ${env.NEXUS_CRED_PSW} -H ${env.NEXUS_HOST} -r ${repo}/${platformRepo} -d artifacts/packages/${platform}/RPMS"
-  } else if (platform ==~ /^almalinux\d+.*/) {
+  if (platform ==~ /^centos\d+.*/ || platform ==~ /^almalinux\d+.*/ ) {
     sh "nexus-assets-flat-upload -u ${env.NEXUS_CRED_USR} -p ${env.NEXUS_CRED_PSW} -H ${env.NEXUS_HOST} -r ${repo}/${platformRepo} -d artifacts/packages/${platform}/RPMS"
   } else if (platform ==~ /^ubuntu\d+/) {
     sh "nexus-assets-flat-upload -f -u ${env.NEXUS_CRED_USR} -p ${env.NEXUS_CRED_PSW} -H ${env.NEXUS_HOST} -r ${repo} -d artifacts/packages/${platform}"
