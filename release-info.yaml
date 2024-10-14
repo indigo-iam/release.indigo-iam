@@ -1,4 +1,4 @@
-project: pkg.indigo-iam/v1.9.0
+project: pkg.indigo-iam/v1.10.0
 repo: indigo-iam
 platforms:
   - almalinux9java17
